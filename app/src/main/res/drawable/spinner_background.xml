@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item><layer-list>
+        <item>
+            <shape>
+                <solid
+                    android:color="@color/white">
+                </solid>
+
+                <corners android:radius="18dp" />
+
+                <padding
+                    android:right="8dp"
+                    />
+                <stroke
+                    android:width="2dp"
+                    android:color="@color/red_very_light"/>
+            </shape>
+        </item>
+        <item android:drawable="@drawable/spinner_arrow"
+            android:gravity="center|right">
+        </item>
+    </layer-list></item>
+</selector>

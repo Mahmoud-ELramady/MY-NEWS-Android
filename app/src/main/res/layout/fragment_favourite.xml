@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".fragments.FavouriteFragment">
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            android:layout_margin="10dp"
+            app:strokeColor="#ddd"
+            app:strokeWidth="1dp"
+            app:cardElevation="10dp">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="4dp"
+                android:padding="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MY NEWS"
+                    android:textSize="35dp"
+                    android:fontFamily="@font/googlesans_medium"
+                    android:textColor="@color/red_light"
+                    android:layout_gravity="center"
+                    />
+
+                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                >
+
+                <ImageView
+                    android:id="@+id/facebook"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/facebook" />
+
+                <ImageView
+                    android:id="@+id/twitter"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/twitter"
+                    android:layout_marginStart="10dp" />
+
+                <ImageView
+                    android:id="@+id/linkedin"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/linkedin"
+                    android:layout_marginStart="10dp" />
+
+
+            </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="3"
+            >
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_fav"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2.9"
+                />
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView_fav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                ads:adSize="BANNER"
+                android:layout_weight=".1"
+                android:layout_marginBottom="2dp"
+                ads:adUnitId="ca-app-pub-7021865909664143~2235645203">
+            </com.google.android.gms.ads.AdView>
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+    </LinearLayout>
+</layout>
