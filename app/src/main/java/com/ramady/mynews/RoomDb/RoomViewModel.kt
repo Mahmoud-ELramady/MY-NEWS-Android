@@ -43,20 +43,9 @@ class RoomViewModel(var db: DataBase):ViewModel() {
     }
 
 
-    fun getNews(){
-        db.newsDao.getNewsRoom()
-            .subscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                newsListDb.postValue(it)
-                Log.e("getNews","getNews")
-            },{
+    fun getNews()=db.newsDao.getNewsRoom()
 
-            }
-            ).let {
-                compositeDisposable.add(it)
-            }
-    }
+
 
 
     fun deleteNews(title : String){

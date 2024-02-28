@@ -19,16 +19,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.ramady.mynews.Adapters.DataAdapter
-import com.ramady.mynews.ConnectivityUtil
-import com.ramady.mynews.DetailsActivity
-import com.ramady.mynews.Repo.NewsRepositary
-import com.ramady.mynews.RoomDb.DataBase
-import com.ramady.mynews.RoomDb.RoomViewModel
-import com.ramady.mynews.ViewModel.DetailsViewModel
-import com.ramady.mynews.ViewModel.NewsViewModel
-import com.ramady.mynews.models.NewsHeadLines.Article
-import com.ramady.mynews.models.NewsHeadLines.Details
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.OnUserEarnedRewardListener
@@ -37,12 +27,22 @@ import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.jackandphantom.carouselrecyclerview.CarouselLayoutManager
 import com.jackandphantom.carouselrecyclerview.CarouselRecyclerview
+import com.ramady.mynews.Adapters.DataAdapter
 import com.ramady.mynews.Adapters.NewsAdapter
+import com.ramady.mynews.ConnectivityUtil
+import com.ramady.mynews.DetailsActivity
 import com.ramady.mynews.R
+import com.ramady.mynews.Repo.NewsRepositary
+import com.ramady.mynews.RoomDb.DataBase
+import com.ramady.mynews.RoomDb.RoomViewModel
+import com.ramady.mynews.ViewModel.DetailsViewModel
+import com.ramady.mynews.ViewModel.NewsViewModel
 import com.ramady.mynews.api.ApiClient
 import com.ramady.mynews.api.ApiInterface
 import com.ramady.mynews.databinding.FragmentHomeBinding
 import com.ramady.mynews.models.DataCategory
+import com.ramady.mynews.models.NewsHeadLines.Article
+import com.ramady.mynews.models.NewsHeadLines.Details
 import java.io.Serializable
 
 
@@ -51,8 +51,8 @@ class HomeFragment : Fragment(),AdapterView.OnItemSelectedListener, NewsAdapter.
     private var binding: FragmentHomeBinding?=null
     lateinit var carouselRecyclerview :CarouselRecyclerview
     lateinit var list: ArrayList<DataCategory>
-    lateinit var adapter: DataAdapter
-    lateinit var itemSelected:String
+       lateinit var adapter: DataAdapter
+    lateinit  var itemSelected:String
     lateinit var spinner:Spinner
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
     lateinit var viewModelD:DetailsViewModel
@@ -368,7 +368,7 @@ fun initSpinner(){
             Toast.makeText(requireContext(),"added to favourites", Toast.LENGTH_SHORT).show()
 
         }else if (d.favourite==false){
-            roomViewModel.deleteNews(d.title)
+            roomViewModel.deleteNews(d.title.toString())
             Toast.makeText(requireContext(),"deleted from favourites", Toast.LENGTH_SHORT).show()
 
         }
@@ -377,7 +377,7 @@ fun initSpinner(){
 
     fun getRoomViewModel(): RoomViewModel {
         return ViewModelProvider(this,object: ViewModelProvider.Factory{
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 if (modelClass.isAssignableFrom(RoomViewModel::class.java)){
                     return RoomViewModel(db) as T
                 }

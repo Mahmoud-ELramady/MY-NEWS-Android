@@ -71,7 +71,7 @@ class NewsAdapter(val context: Context , val listner: ClickListnerItem): Recycle
             roomViewModel = RoomViewModel(db)
 
             // reCreate Name
-            name = data.source.name
+            name = data.source!!.name.toString()
             if (name.contains(".com")) {
                 name = name.replace(".com", "")
             } else if (name.contains(".net")) {
@@ -81,7 +81,7 @@ class NewsAdapter(val context: Context , val listner: ClickListnerItem): Recycle
             }
 
             // reCreate date
-            dateNew = data.publishedAt
+            dateNew = data.publishedAt.toString()
             dateNew = dateNew.replaceAfter("T", "")
             dateNew = dateNew.replace("T", "")
 
@@ -99,18 +99,18 @@ class NewsAdapter(val context: Context , val listner: ClickListnerItem): Recycle
 
             if (data.content == null) {
                 data.content = ""
-                content = data.content
+                content = data?.content!!
             } else {
-                for (i in 0 until data.content.length) {
+                for (i in 0 until data.content!!.length) {
 //            print(str[i])
-                    if (data.content[i].toString() == " ") {
-                        content = content + data.content[i]
+                    if (data.content!![i].toString() == " ") {
+                        content = content + data.content!![i]
 
                     }
 
-                    if (data.content[i].toInt() > 64 && data.content[i].toInt() <= 122) //returns true if both conditions returns true
+                    if (data.content!![i].toInt() > 64 && data.content!![i].toInt() <= 122) //returns true if both conditions returns true
                     {
-                        content = content + data.content[i]
+                        content = content + data.content!![i]
                     }
                 }
 
@@ -122,29 +122,29 @@ class NewsAdapter(val context: Context , val listner: ClickListnerItem): Recycle
 
 
 
-            desc = data.description
+            desc = data.description.toString()
             if (desc == null) {
                 desc = ""
             }
 
-            title = data.title
+            title = data.title.toString()
             if (title == null) {
                 title = ""
             }
 
-            urlImage = data.urlToImage
+            urlImage = data.urlToImage.toString()
             if (urlImage == null) {
                 urlImage = ""
             }
 
 
-            urlLink = data.url
+            urlLink = data.url.toString()
             if (urlLink == null) {
                 urlLink = ""
             }
 
 
-            db.newsDao.isRowIsExist(data.title)
+            db.newsDao.isRowIsExist(data.title.toString())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -184,7 +184,9 @@ class NewsAdapter(val context: Context , val listner: ClickListnerItem): Recycle
 
 
             binding.itemContainer.setOnClickListener {
-                val d = Details(urlImage, name, dateNew, title, desc, content, urlLink, data.favourite)
+                val d = Details(urlImage, name, dateNew, title, desc, content, urlLink,
+                    data.favourite
+                )
                 listner.onClickItemNews(d)
             }
 

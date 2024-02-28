@@ -4,7 +4,6 @@ import java.io.Serializable
 
 
 data class Details (
-
     val   urlImage: String,
     val   name: String,
     val  date: String,

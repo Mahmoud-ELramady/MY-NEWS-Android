@@ -19,23 +19,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ramady.mynews.ConnectivityUtil
-import com.ramady.mynews.DetailsActivity
-import com.ramady.mynews.Repo.RepositarySearch
-import com.ramady.mynews.RoomDb.DataBase
-import com.ramady.mynews.RoomDb.RoomViewModel
-import com.ramady.mynews.ViewModel.SearchViewModelProvider
-import com.ramady.mynews.ViewModel.ViewModelSearch
-import com.ramady.mynews.models.NewsHeadLines.Article
-import com.ramady.mynews.models.NewsHeadLines.Details
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.ramady.mynews.Adapters.NewsAdapter
+import com.ramady.mynews.ConnectivityUtil
+import com.ramady.mynews.DetailsActivity
 import com.ramady.mynews.R
+import com.ramady.mynews.Repo.RepositarySearch
+import com.ramady.mynews.RoomDb.DataBase
+import com.ramady.mynews.RoomDb.RoomViewModel
+import com.ramady.mynews.ViewModel.SearchViewModelProvider
+import com.ramady.mynews.ViewModel.ViewModelSearch
 import com.ramady.mynews.databinding.FragmentSearchBinding
+import com.ramady.mynews.models.NewsHeadLines.Article
+import com.ramady.mynews.models.NewsHeadLines.Details
 import java.io.Serializable
 
 class SearchFragment : Fragment(), NewsAdapter.ClickListnerItem {
@@ -158,7 +158,7 @@ class SearchFragment : Fragment(), NewsAdapter.ClickListnerItem {
 
         InterstitialAd.load(requireContext(),"ca-app-pub-7021865909664143~2235645203", adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.d(TAG, adError?.message)
+                Log.d(TAG, adError.message)
                 mInterstitialAd = null
             }
 
@@ -195,7 +195,7 @@ class SearchFragment : Fragment(), NewsAdapter.ClickListnerItem {
             Toast.makeText(requireContext(),"added to favourites",Toast.LENGTH_SHORT).show()
 
         }else if (d.favourite==false){
-            roomViewModel.deleteNews(d.title)
+            roomViewModel.deleteNews(d.title.toString())
             Toast.makeText(requireContext(),"deleted to favourites",Toast.LENGTH_SHORT).show()
 
         }
@@ -217,7 +217,7 @@ class SearchFragment : Fragment(), NewsAdapter.ClickListnerItem {
 
     fun getRoomViewModel(): RoomViewModel {
         return ViewModelProvider(this,object: ViewModelProvider.Factory{
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 if (modelClass.isAssignableFrom(RoomViewModel::class.java)){
                     return RoomViewModel(db) as T
                 }
@@ -253,7 +253,6 @@ class SearchFragment : Fragment(), NewsAdapter.ClickListnerItem {
 
 
             if (ConnectivityUtil.isConnected(requireContext())){
-
 
                 viewModel.getListSearch(searchName)
                 viewModel.searchList.observe(requireActivity(), Observer {
